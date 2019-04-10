@@ -5,7 +5,8 @@ interface Stackable<T> {
   peak(): T | null;
 }
 
-class Stack<Element> implements Stackable<Element> {
+class Stack<Element>
+  implements Stackable<Element> {
   items: Element[] = [];
 
   push(item: Element) {
@@ -17,7 +18,9 @@ class Stack<Element> implements Stackable<Element> {
   }
 
   peak() {
-    return this.items.length > 0 ? this.items[this.items.length - 1] : null;
+    return this.items.length > 0
+      ? this.items[this.items.length - 1]
+      : null;
   }
 }
 
