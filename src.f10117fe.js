@@ -146,7 +146,7 @@ exports.examples = [{
   code: {
     swift: "func map<T, U>(\n  _ arr: [T],\n  _ f: (T) -> U) -> [U] {\n    var result: [U] = []\n    for item in arr {\n        result.append(f(item))\n    }\n    return result\n}\n\nlet newArr = map(\n  [1, 2, 3],\n  { (n: Int) in n * 2 }\n)\nprint(newArr)\n",
     typescript: "function map<T, U>(\n  arr: Array<T>,\n  f: (item: T) => U\n): Array<U> {\n  const result = [];\n  for (const item of arr) {\n    result.push(f(item));\n  }\n  return result;\n}\n\nconst newArr = map([1, 2, 3], n => n * 2);\nconsole.log(newArr);\n",
-    rust: "fn map<T, U>(\n  arr: Vec<T>,\n  f: &Fn(&T) -> U,\n) -> Vec<U> {\n  let mut result = Vec::new();\n  for item in arr.iter() {\n    result.push(f(item))\n  }\n  return result;\n}\n\nfn main() {\n  let new_vec = map(vec![1, 2, 3], &|n| n * 2);\n  print!(\"{:?}\", new_vec);\n}\n"
+    rust: "fn map<T, U>(\n  arr: Vec<T>,\n  mapper: impl Fn(&T) -> U,\n) -> Vec<U> {\n  let mut result = Vec::new();\n  for item in arr.iter() {\n    result.push(mapper(item))\n  }\n  return result;\n}\n\nfn main() {\n  let new_vec = map(vec![1, 2, 3], |n| n * 2);\n  print!(\"{:?}\", new_vec);\n}\n"
   }
 }, {
   key: "algebraic-data-types",
@@ -267,7 +267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55110" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55137" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
