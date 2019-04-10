@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build --public-url=https://agentcooper.github.io/swift-typescript-rust/ index.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npm run build && gh-pages --dist ./dist --branch gh-pages"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "parcel-bundler": "^1.12.3",
     "typescript": "^3.4.3"
   }
