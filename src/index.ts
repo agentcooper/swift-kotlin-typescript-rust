@@ -1,36 +1,78 @@
-import { readFileSync } from "fs";
+import {
+  examples,
+  Example,
+  Languages
+} from "./examples";
+import { playground } from "./playground";
 
-const files = {
-  rust: readFileSync(__dirname + "/../content/stack/stack.rs", "utf-8"),
-  swift: readFileSync(__dirname + "/../content/stack/stack.swift", "utf-8"),
-  typescript: readFileSync(__dirname + "/../content/stack/stack.ts", "utf-8"),
-};
+const examplesNode = document.querySelector<
+  HTMLSelectElement
+>("#examples");
 
-const playground = {
-  rust: code =>
-    `https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&code=${encodeURIComponent(
-      code,
-    )}`,
+examplesNode!.innerHTML = examples
+  .map(
+    example =>
+      `<option value="${example.key}">${
+        example.title
+      }</option>`
+  )
+  .join("\n");
 
-  typescript: code =>
-    `https://www.typescriptlang.org/play/index.html#src=${encodeURIComponent(
-      code,
-    )}`,
+function findExample(
+  exampleKey: string
+): Example {
+  const example = examples.find(
+    example => example.key === exampleKey
+  );
 
-  swift: code =>
-    `http://online.swiftplayground.run/?sourceURL=data:text/plain,${encodeURIComponent(
-      code,
-    )}`,
-};
-
-for (const [language, fileContent] of Object.entries(files)) {
-  const node = document.querySelector(`#${language}`);
-
-  const code = node.querySelector(".code");
-  code.textContent = fileContent;
-
-  const anchor = node.querySelector<HTMLAnchorElement>(".playground-link");
-  if (anchor) {
-    anchor.href = playground[language](fileContent);
+  if (!example) {
+    throw new Error(
+      `Example "${exampleKey}" not found.`
+    );
   }
+
+  return example;
+}
+
+examplesNode!.addEventListener(
+  "change",
+  event => {
+    const exampleKey = (<HTMLInputElement>(
+      event.target
+    )).value;
+    render(findExample(exampleKey));
+  }
+);
+
+function render(example: Example) {
+  for (const [
+    language,
+    fileContent
+  ] of Object.entries(example.code)) {
+    const node = document.querySelector(
+      `#${language}`
+    );
+
+    const code = node!.querySelector(".code");
+    code!.textContent = fileContent;
+
+    const anchor = node!.querySelector<
+      HTMLAnchorElement
+    >(".playground-link");
+    if (anchor) {
+      anchor.href = playground[
+        language as Languages
+      ](fileContent);
+    }
+  }
+
+  examplesNode!.value = example.key;
+  location.hash = example.key;
+}
+
+if (location.hash) {
+  const exampleKey = location.hash.slice(1);
+  render(findExample(exampleKey));
+} else {
+  render(examples[0]);
 }
