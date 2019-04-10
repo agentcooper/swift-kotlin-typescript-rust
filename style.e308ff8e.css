@@ -23,7 +23,6 @@ header {
 
 .code {
   display: inline-block;
-  width: 300px;
   margin-top: 1em;
   font-size: 12px;
   white-space: pre-wrap;
@@ -35,10 +34,6 @@ header {
   height: 32px;
   margin-right: 0.3em;
   vertical-align: text-bottom;
-}
-
-.playground-link {
-  display: block;
 }
 
 #examples {
