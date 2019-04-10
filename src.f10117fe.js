@@ -119,19 +119,41 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"src/index.ts":[function(require,module,exports) {
+},{}],"src/examples.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var fs_1 = require("fs");
+/**
+ * readFileSync calls are resolved statically by Parcel
+ */
+
+
+exports.examples = [{
+  key: "protocols-interfaces-traits",
+  title: "Protocols/interfaces/traits",
+  code: {
+    swift: "protocol Stackable {\n  associatedtype T\n  var items: [T] { get }\n  mutating func push(_ item: T)\n  mutating func pop() -> T?\n  func peak() -> T?\n}\n\nstruct Stack<Element>: Stackable {\n  var items: [Element] = []\n\n  mutating func push(_ item: Element) {\n    items.append(item)\n  }\n\n  mutating func pop() -> Element? {\n    return items.popLast()\n  }\n\n  func peak() -> Element? {\n    return items.last\n  }\n}\n\nvar s1 = Stack<Int>()\ns1.push(1)\ns1.push(2)\ns1.pop()\nprint(s1.peak()!)\n",
+    typescript: "interface Stackable<T> {\n  readonly items: T[];\n  push(item: T): void;\n  pop(): T | null;\n  peak(): T | null;\n}\n\nclass Stack<Element> implements Stackable<Element> {\n  items: Element[] = [];\n\n  push(item: Element) {\n    this.items.push(item);\n  }\n\n  pop() {\n    return this.items.pop() || null;\n  }\n\n  peak() {\n    return this.items.length > 0 ? this.items[this.items.length - 1] : null;\n  }\n}\n\nconst s1 = new Stack<number>();\ns1.push(1);\ns1.push(2);\ns1.pop();\nconsole.log(s1.peak());\n",
+    rust: "trait Stackable<T> {\n  fn push(&mut self, item: T) -> ();\n  fn pop(&mut self) -> Option<T>;\n  fn peak(&self) -> Option<&T>;\n}\n\nstruct Stack<T> {\n  items: Vec<T>,\n}\n\nimpl<T> Stackable<T> for Stack<T> {\n  fn push(&mut self, item: T) {\n    self.items.push(item);\n  }\n\n  fn pop(&mut self) -> Option<T> {\n    return self.items.pop();\n  }\n\n  fn peak(&self) -> Option<&T> {\n    return self.items.last();\n  }\n}\n\nimpl<T> Stack<T> {\n  fn new() -> Stack<T> {\n    Stack { items: Vec::new() }\n  }\n}\n\nfn main() {\n  let mut s1 = Stack::new();\n  s1.push(1);\n  s1.push(2);\n  s1.pop();\n  print!(\"{:?}\", s1.peak())\n}\n"
+  }
+}, {
+  key: "algebraic-data-types",
+  title: "Algebraic data types",
+  code: {
+    swift: "enum Shape {\n    case Square(side: Double)\n    case Circle(radius: Double)\n}\n\nlet shapes = [\n    Shape.Square(side: 2),\n    Shape.Circle(radius: 4)\n]\n\nfunc getArea(_ shape: Shape) -> Double {\n    switch shape {\n    case .Circle(radius: let r):\n        return Double.pi * r * r\n    case .Square(side: let s):\n        return s * s\n    }\n}\n\nlet totalArea = shapes.reduce(0, {\n    (sum: Double, shape: Shape) in\n    sum + getArea(shape)\n})\n\nprint(totalArea)\n",
+    typescript: "const enum ShapeKind {\n  Square,\n  Circle\n}\n\ninterface Square {\n  kind: ShapeKind.Square;\n  side: number;\n}\n\ninterface Circle {\n  kind: ShapeKind.Circle;\n  radius: number;\n}\n\ntype Shape = Square | Circle;\n\nfunction Square(side: number): Square {\n  return {\n    kind: ShapeKind.Square,\n    side\n  };\n}\n\nfunction Circle(radius: number): Circle {\n  return {\n    kind: ShapeKind.Circle,\n    radius\n  };\n}\n\nconst shapes: Shape[] = [Square(2), Circle(4)];\n\nfunction getArea(shape: Shape) {\n  switch (shape.kind) {\n    case ShapeKind.Square:\n      return shape.side * shape.side;\n    case ShapeKind.Circle:\n      return Math.PI * shape.radius ** 2;\n  }\n}\n\nconst totalArea = shapes.reduce(\n  (sum, shape) => sum + getArea(shape),\n  0\n);\n\nconsole.log(totalArea);\n",
+    rust: "use std::f64::consts::PI;\n\nenum Shape {\n  Square { side: f64 },\n  Circle { radius: f64 },\n}\n\nfn get_area(shape: &Shape) -> f64 {\n  return match shape {\n    Shape::Square { side } => side * side,\n    Shape::Circle { radius } => {\n      PI * radius * radius\n    }\n  };\n}\n\nfn main() {\n  let shapes: Vec<Shape> = vec![\n    Shape::Square { side: 2.0 },\n    Shape::Circle { radius: 4.0 },\n  ];\n\n  let total_area =\n    shapes.iter().fold(0f64, |sum, shape| {\n      sum + get_area(&shape)\n    });\n\n  print!(\"{:?}\", total_area)\n}\n"
+  }
+}];
+},{"fs":"node_modules/parcel-bundler/src/builtins/_empty.js"}],"src/playground.ts":[function(require,module,exports) {
 "use strict";
 
 exports.__esModule = true;
-
-var fs_1 = require("fs");
-
-var files = {
-  rust: "trait Stackable<T> {\n  fn push(&mut self, item: T) -> ();\n  fn pop(&mut self) -> Option<T>;\n  fn peak(&self) -> Option<&T>;\n}\n\nstruct Stack<T> {\n  items: Vec<T>,\n}\n\nimpl<T> Stackable<T> for Stack<T> {\n  fn push(&mut self, item: T) {\n    self.items.push(item);\n  }\n\n  fn pop(&mut self) -> Option<T> {\n    return self.items.pop();\n  }\n\n  fn peak(&self) -> Option<&T> {\n    return self.items.last();\n  }\n}\n\nimpl<T> Stack<T> {\n  fn new() -> Stack<T> {\n    Stack { items: Vec::new() }\n  }\n}\n\nfn main() {\n  let mut s1 = Stack::new();\n  s1.push(1);\n  s1.push(2);\n  s1.pop();\n  print!(\"{:?}\", s1.peak())\n}\n",
-  swift: "protocol Stackable {\n  associatedtype T\n  var items: [T] { get }\n  mutating func push(_ item: T)\n  mutating func pop() -> T?\n  func peak() -> T?\n}\n\nstruct Stack<Element>: Stackable {\n  var items: [Element] = []\n\n  mutating func push(_ item: Element) {\n    items.append(item)\n  }\n\n  mutating func pop() -> Element? {\n    return items.popLast()\n  }\n\n  func peak() -> Element? {\n    return items.last\n  }\n}\n\nvar s1 = Stack<Int>()\ns1.push(1)\ns1.push(2)\ns1.pop()\nprint(s1.peak()!)\n",
-  typescript: "interface Stackable<T> {\n  readonly items: T[];\n  push(item: T): void;\n  pop(): T | null;\n  peak(): T | null;\n}\n\nclass Stack<Element> implements Stackable<Element> {\n  items: Element[] = [];\n\n  push(item: Element) {\n    this.items.push(item);\n  }\n\n  pop() {\n    return this.items.pop() || null;\n  }\n\n  peak() {\n    return this.items.length > 0 ? this.items[this.items.length - 1] : null;\n  }\n}\n\nconst s1 = new Stack<number>();\ns1.push(1);\ns1.push(2);\ns1.pop();\nconsole.log(s1.peak());\n"
-};
-var playground = {
+exports.playground = {
   rust: function rust(code) {
     return "https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&code=" + encodeURIComponent(code);
   },
@@ -142,21 +164,74 @@ var playground = {
     return "http://online.swiftplayground.run/?sourceURL=data:text/plain," + encodeURIComponent(code);
   }
 };
+},{}],"src/index.ts":[function(require,module,exports) {
+"use strict";
 
-for (var _i = 0, _a = Object.entries(files); _i < _a.length; _i++) {
-  var _b = _a[_i],
-      language = _b[0],
-      fileContent = _b[1];
-  var node = document.querySelector("#" + language);
-  var code = node.querySelector(".code");
-  code.textContent = fileContent;
-  var anchor = node.querySelector(".playground-link");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-  if (anchor) {
-    anchor.href = playground[language](fileContent);
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var examples_1 = require("./examples");
+
+var playground_1 = require("./playground");
+
+var examplesNode = document.querySelector("#examples");
+examplesNode.innerHTML = examples_1.examples.map(function (example) {
+  return "<option value=\"".concat(example.key, "\">").concat(example.title, "</option>");
+}).join("\n");
+
+function findExample(exampleKey) {
+  var example = examples_1.examples.find(function (example) {
+    return example.key === exampleKey;
+  });
+
+  if (!example) {
+    throw new Error("Example \"".concat(exampleKey, "\" not found."));
   }
+
+  return example;
 }
-},{"fs":"node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+examplesNode.addEventListener("change", function (event) {
+  var exampleKey = event.target.value;
+  render(findExample(exampleKey));
+});
+
+function render(example) {
+  for (var _i = 0, _Object$entries = Object.entries(example.code); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        language = _Object$entries$_i[0],
+        fileContent = _Object$entries$_i[1];
+
+    var node = document.querySelector("#".concat(language));
+    var code = node.querySelector(".code");
+    code.textContent = fileContent;
+    var anchor = node.querySelector(".playground-link");
+
+    if (anchor) {
+      anchor.href = playground_1.playground[language](fileContent);
+    }
+  }
+
+  examplesNode.value = example.key;
+  location.hash = example.key;
+}
+
+if (location.hash) {
+  var exampleKey = location.hash.slice(1);
+  render(findExample(exampleKey));
+} else {
+  render(examples_1.examples[0]);
+}
+},{"./examples":"src/examples.ts","./playground":"src/playground.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -184,7 +259,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63026" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51697" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
