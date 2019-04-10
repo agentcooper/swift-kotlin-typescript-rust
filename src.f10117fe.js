@@ -141,6 +141,14 @@ exports.examples = [{
     rust: "trait Stackable<T> {\n  fn push(&mut self, item: T) -> ();\n  fn pop(&mut self) -> Option<T>;\n  fn peak(&self) -> Option<&T>;\n}\n\nstruct Stack<T> {\n  items: Vec<T>,\n}\n\nimpl<T> Stackable<T> for Stack<T> {\n  fn push(&mut self, item: T) {\n    self.items.push(item);\n  }\n\n  fn pop(&mut self) -> Option<T> {\n    return self.items.pop();\n  }\n\n  fn peak(&self) -> Option<&T> {\n    return self.items.last();\n  }\n}\n\nimpl<T> Stack<T> {\n  fn new() -> Stack<T> {\n    Stack { items: Vec::new() }\n  }\n}\n\nfn main() {\n  let mut s1 = Stack::new();\n  s1.push(1);\n  s1.push(2);\n  s1.pop();\n  print!(\"{:?}\", s1.peak())\n}\n"
   }
 }, {
+  key: "higher-order-functions",
+  title: "Higher-order functions",
+  code: {
+    swift: "func map<T, U>(\n  _ arr: [T],\n  _ f: (T) -> U) -> [U] {\n    var result: [U] = []\n    for item in arr {\n        result.append(f(item))\n    }\n    return result\n}\n\nlet newArr = map(\n  [1, 2, 3],\n  { (n: Int) in n * 2 }\n)\nprint(newArr)\n",
+    typescript: "function map<T, U>(\n  arr: Array<T>,\n  f: (item: T) => U\n): Array<U> {\n  const result = [];\n  for (const item of arr) {\n    result.push(f(item));\n  }\n  return result;\n}\n\nconst newArr = map([1, 2, 3], n => n * 2);\nconsole.log(newArr);\n",
+    rust: "fn map<T, U>(\n  arr: Vec<T>,\n  f: &Fn(&T) -> U,\n) -> Vec<U> {\n  let mut result = Vec::new();\n  for item in arr.iter() {\n    result.push(f(item))\n  }\n  return result;\n}\n\nfn main() {\n  let new_vec = map(vec![1, 2, 3], &|n| n * 2);\n  print!(\"{:?}\", new_vec);\n}\n"
+  }
+}, {
   key: "algebraic-data-types",
   title: "Algebraic data types",
   code: {
@@ -259,7 +267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54474" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55110" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
