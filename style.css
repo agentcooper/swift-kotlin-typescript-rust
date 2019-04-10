@@ -1,0 +1,33 @@
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+body {
+  padding: 1em;
+}
+
+section {
+  flex: 1;
+}
+
+.code {
+  display: inline-block;
+  width: 300px;
+
+  margin-top: 1em;
+
+  white-space: pre-wrap;
+  font-family: Consolas, monaco, monospace;
+  font-size: 12px;
+}
+
+h1,
+h2,
+a {
+  font-family: Consolas, monaco, monospace;
+}
+
+.playground-link {
+  display: block;
+}
