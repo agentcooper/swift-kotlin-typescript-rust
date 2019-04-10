@@ -40,6 +40,27 @@ export const examples: Example[] = [
     }
   },
   {
+    key: "higher-order-functions",
+    title: "Higher-order functions",
+    code: {
+      swift: readFileSync(
+        __dirname +
+          "/../examples/higher-order-functions/map.swift",
+        "utf-8"
+      ),
+      typescript: readFileSync(
+        __dirname +
+          "/../examples/higher-order-functions/map.ts",
+        "utf-8"
+      ),
+      rust: readFileSync(
+        __dirname +
+          "/../examples/higher-order-functions/map.rs",
+        "utf-8"
+      )
+    }
+  },
+  {
     key: "algebraic-data-types",
     title: "Algebraic data types",
     code: {
