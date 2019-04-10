@@ -12,6 +12,11 @@ section {
   flex: 1;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .code {
   display: inline-block;
   width: 300px;
@@ -32,7 +37,7 @@ section {
 }
 
 #examples {
-  font-size: 2em;
+  font-size: 1.5em;
   width: 14em;
 }
 
