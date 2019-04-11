@@ -4,12 +4,12 @@ enum Shape {
 }
 
 fn get_area(shape: &Shape) -> f64 {
-  return match shape {
+  match shape {
     Shape::Square { side } => side * side,
     Shape::Circle { radius } => {
       std::f64::consts::PI * radius * radius
     }
-  };
+  }
 }
 
 fn main() {
