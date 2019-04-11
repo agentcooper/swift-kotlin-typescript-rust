@@ -1,11 +1,11 @@
 {
-  "name": "swift-typescript-rust",
+  "name": "swift-kotlin-typescript-rust",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build --public-url=https://agentcooper.github.io/swift-typescript-rust/ index.html",
+    "build": "parcel build --public-url=https://agentcooper.github.io/swift-kotlin-typescript-rust/ index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run build && gh-pages --dist ./dist --branch gh-pages"
   },
