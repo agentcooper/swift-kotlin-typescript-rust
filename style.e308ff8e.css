@@ -14,6 +14,11 @@ main {
 
 section {
   flex: 1;
+  padding-right: 1em;
+}
+
+section + section {
+  padding-left: 1em;
 }
 
 header {
