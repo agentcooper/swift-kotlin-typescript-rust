@@ -1,5 +1,3 @@
-use std::f64::consts::PI;
-
 enum Shape {
   Square { side: f64 },
   Circle { radius: f64 },
@@ -9,7 +7,7 @@ fn get_area(shape: &Shape) -> f64 {
   return match shape {
     Shape::Square { side } => side * side,
     Shape::Circle { radius } => {
-      PI * radius * radius
+      std::f64::consts::PI * radius * radius
     }
   };
 }
