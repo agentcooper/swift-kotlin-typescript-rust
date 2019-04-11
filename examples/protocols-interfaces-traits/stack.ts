@@ -1,5 +1,4 @@
 interface Stackable<T> {
-  readonly items: T[];
   push(item: T): void;
   pop(): T | null;
   peak(): T | null;

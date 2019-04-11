@@ -1,6 +1,5 @@
 protocol Stackable {
   associatedtype T
-  var items: [T] { get }
   mutating func push(_ item: T)
   mutating func pop() -> T?
   func peak() -> T?
