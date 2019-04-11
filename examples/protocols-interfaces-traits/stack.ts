@@ -4,11 +4,10 @@ interface Stackable<T> {
   peak(): T | null;
 }
 
-class Stack<Element>
-  implements Stackable<Element> {
-  items: Element[] = [];
+class Stack<T> implements Stackable<T> {
+  items: T[] = [];
 
-  push(item: Element) {
+  push(item: T) {
     this.items.push(item);
   }
 

@@ -5,18 +5,18 @@ protocol Stackable {
   func peak() -> T?
 }
 
-struct Stack<Element>: Stackable {
-  var items: [Element] = []
+struct Stack<T>: Stackable {
+  var items: [T] = []
 
-  mutating func push(_ item: Element) {
+  mutating func push(_ item: T) {
     items.append(item)
   }
 
-  mutating func pop() -> Element? {
+  mutating func pop() -> T? {
     return items.popLast()
   }
 
-  func peak() -> Element? {
+  func peak() -> T? {
     return items.last
   }
 }
