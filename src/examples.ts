@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 
 interface Code {
   swift: string;
+  kotlin: string;
   typescript: string;
   rust: string;
 }
@@ -27,6 +28,11 @@ export const examples: Example[] = [
           "/../examples/protocols-interfaces-traits/stack.swift",
         "utf-8"
       ),
+      kotlin: readFileSync(
+        __dirname +
+          "/../examples/protocols-interfaces-traits/stack.kt",
+        "utf-8"
+      ),
       typescript: readFileSync(
         __dirname +
           "/../examples/protocols-interfaces-traits/stack.ts",
@@ -48,6 +54,11 @@ export const examples: Example[] = [
           "/../examples/higher-order-functions/map.swift",
         "utf-8"
       ),
+      kotlin: readFileSync(
+        __dirname +
+          "/../examples/higher-order-functions/map.kt",
+        "utf-8"
+      ),
       typescript: readFileSync(
         __dirname +
           "/../examples/higher-order-functions/map.ts",
@@ -67,6 +78,11 @@ export const examples: Example[] = [
       swift: readFileSync(
         __dirname +
           "/../examples/algebraic-data-types/algebraic-data-types.swift",
+        "utf-8"
+      ),
+      kotlin: readFileSync(
+        __dirname +
+          "/../examples/algebraic-data-types/algebraic-data-types.kt",
         "utf-8"
       ),
       typescript: readFileSync(
