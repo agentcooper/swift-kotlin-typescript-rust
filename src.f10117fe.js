@@ -142,6 +142,15 @@ exports.examples = [{
     rust: "trait Stackable<T> {\n  fn push(&mut self, item: T) -> ();\n  fn pop(&mut self) -> Option<T>;\n  fn peak(&self) -> Option<&T>;\n}\n\nstruct Stack<T> {\n  items: Vec<T>,\n}\n\nimpl<T> Stackable<T> for Stack<T> {\n  fn push(&mut self, item: T) {\n    self.items.push(item);\n  }\n\n  fn pop(&mut self) -> Option<T> {\n    return self.items.pop();\n  }\n\n  fn peak(&self) -> Option<&T> {\n    return self.items.last();\n  }\n}\n\nimpl<T> Stack<T> {\n  fn new() -> Stack<T> {\n    Stack { items: Vec::new() }\n  }\n}\n\nfn main() {\n  let mut s1 = Stack::new();\n  s1.push(1);\n  s1.push(2);\n  s1.pop();\n  print!(\"{:?}\", s1.peak())\n}\n"
   }
 }, {
+  key: "collections",
+  title: "Collections",
+  code: {
+    swift: "enum Food {\n  case vegetable\n  case fruit\n  case fastfood\n}\n\nvar farm: [Food:Set<String>] = [\n  .vegetable: Set([\"\uD83C\uDF45\", \"\uD83C\uDF3D\"]),\n  .fruit: Set([\"\uD83C\uDF4C\", \"\uD83C\uDF4F\"])\n]\n\nif let vegetables = farm[.vegetable] {\n  if (vegetables.contains(\"\uD83C\uDF45\")) {\n    print(\"We have tomatoes!\")\n  }\n}\n",
+    kotlin: "enum class Food {\n  vegetable,\n  fruit,\n  fastfood\n}\n\nval farm = hashMapOf(\n  Food.vegetable to setOf(\"\uD83C\uDF45\", \"\uD83C\uDF3D\"),\n  Food.fruit to setOf(\"\uD83C\uDF4C\", \"\uD83C\uDF4F\")\n)\n\nfun main() {\n  val vegetables = farm[Food.vegetable]\n  if (vegetables != null) {\n    if (vegetables.contains(\"\uD83C\uDF45\")) {\n      println(\"We have tomatoes!\")\n    }\n  }\n}\n",
+    typescript: "enum Food {\n  vegetable,\n  fruit,\n  fastfood\n}\n\nconst farm = new Map([\n  [Food.vegetable, new Set([\"\uD83C\uDF45\", \"\uD83C\uDF3D\"])],\n  [Food.fruit, new Set([\"\uD83C\uDF4C\", \"\uD83C\uDF4F\"])]\n]);\n\nconst vegetables = farm.get(Food.vegetable);\nif (vegetables) {\n  if (vegetables.has(\"\uD83C\uDF45\")) {\n    console.log(\"We have tomatoes!\");\n  }\n}\n",
+    rust: "use std::collections::HashMap;\nuse std::collections::HashSet;\n\n#[derive(Hash, PartialEq, Eq)]\nenum Food {\n  Vegetable,\n  Fruit,\n  FastFood,\n}\n\nfn main() {\n  let mut vegetables = HashSet::new();\n  vegetables.insert(\"\uD83C\uDF45\");\n  vegetables.insert(\"\uD83C\uDF3D\");\n\n  let mut fruits = HashSet::new();\n  fruits.insert(\"\uD83C\uDF4C\");\n  fruits.insert(\"\uD83C\uDF4F\");\n\n  let mut farm = HashMap::new();\n  farm.insert(Food::Vegetable, vegetables);\n  farm.insert(Food::Fruit, fruits);\n\n  if let Some(vegetables) =\n    farm.get(&Food::Vegetable)\n  {\n    if vegetables.contains(\"\uD83C\uDF45\") {\n      println!(\"We have tomatoes!\");\n    }\n  }\n}\n"
+  }
+}, {
   key: "higher-order-functions",
   title: "Higher-order functions",
   code: {
@@ -685,9 +694,9 @@ var LZString = __importStar(require("lz-string"));
 
 exports.playground = {
   kotlin: function kotlin(code) {
-    return "https://play.kotlinlang.org/#".concat(btoa(JSON.stringify({
+    return "https://play.kotlinlang.org/#".concat(btoa(unescape(encodeURIComponent(JSON.stringify({
       code: code
-    })));
+    })))));
   },
   swift: function swift(code) {
     return "http://online.swiftplayground.run/?sourceURL=data:text/plain,".concat(encodeURIComponent(code));
@@ -794,7 +803,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63767" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53485" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
