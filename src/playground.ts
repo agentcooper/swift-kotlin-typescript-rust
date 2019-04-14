@@ -3,7 +3,11 @@ import * as LZString from "lz-string";
 export const playground = {
   kotlin: (code: string) =>
     `https://play.kotlinlang.org/#${btoa(
-      JSON.stringify({ code })
+      unescape(
+        encodeURIComponent(
+          JSON.stringify({ code })
+        )
+      )
     )}`,
 
   swift: (code: string) =>

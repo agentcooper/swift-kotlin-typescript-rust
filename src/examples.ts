@@ -46,6 +46,32 @@ export const examples: Example[] = [
     }
   },
   {
+    key: "collections",
+    title: "Collections",
+    code: {
+      swift: readFileSync(
+        __dirname +
+          "/../examples/collections/collections.swift",
+        "utf-8"
+      ),
+      kotlin: readFileSync(
+        __dirname +
+          "/../examples/collections/collections.kt",
+        "utf-8"
+      ),
+      typescript: readFileSync(
+        __dirname +
+          "/../examples/collections/collections.ts",
+        "utf-8"
+      ),
+      rust: readFileSync(
+        __dirname +
+          "/../examples/collections/collections.rs",
+        "utf-8"
+      )
+    }
+  },
+  {
     key: "higher-order-functions",
     title: "Higher-order functions",
     code: {
