@@ -40,7 +40,7 @@ examplesNode!.addEventListener(
     const exampleKey = (<HTMLInputElement>(
       event.target
     )).value;
-    render(findExample(exampleKey));
+    location.hash = exampleKey;
   }
 );
 
@@ -70,9 +70,19 @@ function render(example: Example) {
   location.hash = example.key;
 }
 
-if (location.hash) {
+function renderFromHash() {
   const exampleKey = location.hash.slice(1);
-  render(findExample(exampleKey));
+  if (exampleKey) {
+    render(findExample(exampleKey));
+  }
+}
+
+window.addEventListener("hashchange", () => {
+  renderFromHash();
+});
+
+if (location.hash) {
+  renderFromHash();
 } else {
   render(examples[0]);
 }
