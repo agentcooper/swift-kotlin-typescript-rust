@@ -746,7 +746,7 @@ function findExample(exampleKey) {
 
 examplesNode.addEventListener("change", function (event) {
   var exampleKey = event.target.value;
-  render(findExample(exampleKey));
+  location.hash = exampleKey;
 });
 
 function render(example) {
@@ -769,9 +769,20 @@ function render(example) {
   location.hash = example.key;
 }
 
-if (location.hash) {
+function renderFromHash() {
   var exampleKey = location.hash.slice(1);
-  render(findExample(exampleKey));
+
+  if (exampleKey) {
+    render(findExample(exampleKey));
+  }
+}
+
+window.addEventListener("hashchange", function () {
+  renderFromHash();
+});
+
+if (location.hash) {
+  renderFromHash();
 } else {
   render(examples_1.examples[0]);
 }
@@ -803,7 +814,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59395" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49667" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
