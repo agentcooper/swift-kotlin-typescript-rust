@@ -16,12 +16,12 @@ export const playground = {
     )}`,
 
   typescript: (code: string) =>
-    `https://typescript-play.js.org/#code/${LZString.compressToEncodedURIComponent(
+    `https://www.typescriptlang.org/play#code/${LZString.compressToEncodedURIComponent(
       code
     )}`,
 
   rust: (code: string) =>
     `https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&code=${encodeURIComponent(
       code
-    )}`
+    )}`,
 };
