@@ -168,6 +168,15 @@ exports.examples = [{
     typescript: "const enum ShapeKind {\n  Square,\n  Circle\n}\n\ninterface Square {\n  kind: ShapeKind.Square;\n  side: number;\n}\n\ninterface Circle {\n  kind: ShapeKind.Circle;\n  radius: number;\n}\n\ntype Shape = Square | Circle;\n\nfunction Square(side: number): Square {\n  return {\n    kind: ShapeKind.Square,\n    side\n  };\n}\n\nfunction Circle(radius: number): Circle {\n  return {\n    kind: ShapeKind.Circle,\n    radius\n  };\n}\n\nconst shapes: Shape[] = [Square(2), Circle(4)];\n\nfunction getArea(shape: Shape) {\n  switch (shape.kind) {\n    case ShapeKind.Square:\n      return shape.side * shape.side;\n    case ShapeKind.Circle:\n      return Math.PI * shape.radius ** 2;\n  }\n}\n\nconst totalArea = shapes.reduce(\n  (sum, shape) => sum + getArea(shape),\n  0\n);\n\nconsole.log(totalArea);\n",
     rust: "enum Shape {\n  Square { side: f64 },\n  Circle { radius: f64 },\n}\n\nfn get_area(shape: &Shape) -> f64 {\n  match shape {\n    Shape::Square { side } => side * side,\n    Shape::Circle { radius } => {\n      std::f64::consts::PI * radius * radius\n    }\n  }\n}\n\nfn main() {\n  let shapes: Vec<Shape> = vec![\n    Shape::Square { side: 2.0 },\n    Shape::Circle { radius: 4.0 },\n  ];\n\n  let total_area =\n    shapes.iter().fold(0f64, |sum, shape| {\n      sum + get_area(&shape)\n    });\n\n  print!(\"{:?}\", total_area)\n}\n"
   }
+}, {
+  key: "async-await",
+  title: "Concurrency with async/await",
+  code: {
+    swift: "import Foundation\n\nfunc sumParallel() async -> Int {\n  async let a = f(100, 1)\n  async let b = f(200, 5)\n  return await a + b\n}\n\nfunc f(_ v: Int, _ s: Int) async -> Int\n{\n  print(\"Fetching \\(v)...\")\n  // delay\n  let ns = UInt64(s * 1_000_000_000)\n  try! await Task.sleep(nanoseconds: ns)\n  return v\n}\n\n@main struct Main {\n  static func main() async {\n    let result = await sumParallel()\n    print(result)\n  }\n}\n",
+    kotlin: "import kotlinx.coroutines.*\nimport kotlin.system.*\n\nsuspend fun sumParallel(): Int = coroutineScope {\n    val a = async { f(100, 1) }\n    val b = async { f(200, 5) }\n    a.await() + b.await()\n}\n\nsuspend fun f(v: Int, s: Int): Int {\n    println(\"Fetching $v...\")\n    delay(s * 1000L)\n    return v\n}\n\nfun main() = runBlocking {\n    val result = sumParallel()\n    println(result)\n}",
+    typescript: "async function sumParallel() {\n  const aPromise = f(100, 1);\n  const bPromise = f(200, 5);\n  const [a, b] = await Promise.all([\n    aPromise,\n    bPromise,\n  ]);\n  return a + b;\n}\n\nasync function f(v: number, s: number) {\n  console.log(`Fetching ${v}...`);\n  // delay\n  await new Promise((resolve) => {\n    setTimeout(resolve, s * 1000);\n  });\n  return v;\n}\n\nsumParallel().then(console.log);\n",
+    rust: "use tokio::time::{sleep, Duration};\n\nasync fn sum_parallel() -> u64 {\n    let a_future = f(100, 1);\n    let b_future = f(200, 5);\n    let (a, b) = futures::join!(a_future, b_future);\n    return a + b\n}\n\nasync fn f(v: u64, s: u64) -> u64 {\n    println!(\"Fetching {v}...\");\n    // delay\n    sleep(Duration::from_secs(s)).await;\n    return v\n}\n\n#[tokio::main]\nasync fn main() {\n    let result = sum_parallel().await;\n    print!(\"{}\", result)\n}"
+  }
 }];
 },{"fs":"node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/lz-string/libs/lz-string.js":[function(require,module,exports) {
 var define;
@@ -702,7 +711,7 @@ exports.playground = {
     return "http://online.swiftplayground.run/?sourceURL=data:text/plain,".concat(encodeURIComponent(code));
   },
   typescript: function typescript(code) {
-    return "https://typescript-play.js.org/#code/".concat(LZString.compressToEncodedURIComponent(code));
+    return "https://www.typescriptlang.org/play#code/".concat(LZString.compressToEncodedURIComponent(code));
   },
   rust: function rust(code) {
     return "https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&code=".concat(encodeURIComponent(code));
@@ -814,7 +823,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59389" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52526" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
