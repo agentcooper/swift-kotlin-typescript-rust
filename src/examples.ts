@@ -42,8 +42,8 @@ export const examples: Example[] = [
         __dirname +
           "/../examples/protocols-interfaces-traits/stack.rs",
         "utf-8"
-      )
-    }
+      ),
+    },
   },
   {
     key: "collections",
@@ -68,8 +68,8 @@ export const examples: Example[] = [
         __dirname +
           "/../examples/collections/collections.rs",
         "utf-8"
-      )
-    }
+      ),
+    },
   },
   {
     key: "higher-order-functions",
@@ -94,8 +94,8 @@ export const examples: Example[] = [
         __dirname +
           "/../examples/higher-order-functions/map.rs",
         "utf-8"
-      )
-    }
+      ),
+    },
   },
   {
     key: "algebraic-data-types",
@@ -120,7 +120,33 @@ export const examples: Example[] = [
         __dirname +
           "/../examples/algebraic-data-types/algebraic-data-types.rs",
         "utf-8"
-      )
-    }
-  }
+      ),
+    },
+  },
+  {
+    key: "async-await",
+    title: "Concurrency with async/await",
+    code: {
+      swift: readFileSync(
+        __dirname +
+          "/../examples/async-await/async-await.swift",
+        "utf-8"
+      ),
+      kotlin: readFileSync(
+        __dirname +
+          "/../examples/async-await/async-await.kt",
+        "utf-8"
+      ),
+      typescript: readFileSync(
+        __dirname +
+          "/../examples/async-await/async-await.ts",
+        "utf-8"
+      ),
+      rust: readFileSync(
+        __dirname +
+          "/../examples/async-await/async-await.rs",
+        "utf-8"
+      ),
+    },
+  },
 ];
